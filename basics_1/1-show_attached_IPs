@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# show all the  IP IPv4 active.
+
+# use `ifconfig` listinterface  `grep` for exterin IPv4
+ifconfig | grep 'inet ' | awk '{print $2}'
