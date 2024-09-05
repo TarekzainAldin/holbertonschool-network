@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # This script displays all listening TCP and UDP ports 
 
-sudo netstat -tulnvp | grep LISTEN
+netstat -a 
