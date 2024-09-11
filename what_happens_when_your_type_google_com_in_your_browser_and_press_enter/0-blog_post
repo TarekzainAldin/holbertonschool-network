@@ -4,82 +4,90 @@ When you type https://www.google.com into your browser and hit Enter, a series o
 1. DNS Request – Resolving the Domain Name
 The first step in loading a webpage is resolving the domain name (e.g., www.google.com) into an IP address. This is where the Domain Name System (DNS) comes into play. DNS functions like the internet’s phonebook, translating human-readable domain names into machine-readable IP addresses.
 
-Browser Cache: Your browser checks if it has recently accessed the domain and has the IP address cached.
-OS Cache: If not, the operating system checks its local DNS cache.
-Recursive DNS Query: If neither has the IP, the request goes to a recursive DNS resolver, typically provided by your Internet Service Provider (ISP). The resolver might already have the answer in its cache, but if not, it queries authoritative DNS servers.
-Authoritative DNS Server: Eventually, the request reaches Google’s DNS server, which provides the correct IP address (e.g., 142.250.190.142).
-Return to Browser: The IP address is returned to the browser, allowing it to proceed with the connection.
-Why is DNS important? Without DNS, we would have to remember IP addresses instead of domain names, which would make navigating the web cumbersome.
+DNS
+TCP/IP
+Firewall
+HTTPS/SSL
+Load-balancer
+Web server
+Application server
+Database
+DNS
 
 
-2. TCP/IP – Establishing a Connection
-With the IP address in hand, your browser initiates a connection to Google’s server using the TCP/IP protocol.
 
-Here’s how it works:
+The Domain Name System (DNS) is the hierarchical and decentralized naming system used to identify computers, services, and other resources reachable through the Internet or other Internet Protocol (IP) networks. The resource records contained in the DNS associate domain names with other forms of information. Domain names are mapped to the numerical IP addresses, and this comes as a result of the fact that humans prefer names to numbers as it is easy to grasp as compared to just numbers which the computer understands. For example, www.google.com (which is a Fully Qualified Domain NAME - FQDN) is easily remembered than 172.217.17.36.
 
-IP (Internet Protocol): The IP protocol ensures your data packets are sent to the correct address. Think of it as the addressing system that routes your request to Google's server.
-TCP (Transmission Control Protocol): TCP ensures that the connection is reliable. Before any data can be exchanged, a three-way handshake is performed:
-SYN: Your browser sends a "SYN" packet to Google’s server to initiate the connection.
-SYN-ACK: Google’s server responds with a "SYN-ACK" to acknowledge.
-ACK: Your browser replies with an "ACK," and the connection is established.
-Why is TCP/IP important? TCP/IP ensures data is reliably transmitted between your computer and the server. It guarantees that packets arrive in order, without errors or data loss
+DNS is a query/response protocol. The client queries an information (for example the IP address corresponding to www.google.com) in a single Transmission Control Protocol (TCP) request. This request is followed by a single TCP reply from the DNS server with the IP address corresponding to the domain name.
+TCP/IP
 
-3. Firewall – Controlling Network Access
-Before any data reaches Google’s server, it passes through firewalls on both ends. A firewall is a security device that monitors and controls incoming and outgoing network traffic based on predetermined rules.
+The Transmission Control Protocol (TCP) is a connection-oriented protocol and one of the main protocols of the Internet protocol suite. It serves as a connection between client and server which must be established before data can be sent. The server must be listening for connection requests from clients before a connection is established. Applications that do not require reliable data stream service may use the User Datagram Protocol (UDP), which provides a connectionless datagram service that prioritizes time over reliability.
 
-Here’s how firewalls function in this context:
+The Internet Protocol (IP) is the network layer communications protocol in the Internet protocol suite for relaying datagrams across network boundaries. Its routing function enables internetworking, and essentially establishes the Internet. The Internet Protocol is responsible for addressing host interfaces, encapsulating data into datagrams (including fragmentation and reassembly) and routing datagrams from a source host interface to a destination host interface across one or more IP networks. For these purposes, the Internet Protocol defines the format of packets and provides an addressing system.
 
-Your Firewall: Protects your system from malicious traffic by filtering inbound and outbound requests.
-Google’s Firewall: Similarly, Google’s firewall ensures that only legitimate traffic is allowed into their network, blocking potential threats.
-Why is a firewall important? Firewalls are critical for network security, as they help prevent unauthorized access and block malicious traffic from reaching servers.
+IP has the task of delivering packets from the source host to the destination host solely based on the IP addresses in the packet headers. For this purpose, IP defines packet structures that encapsulate the data to be delivered. It also defines addressing methods that are used to label the datagram with source and destination information.
+FIREWALL
 
-4. HTTPS/SSL – Securing the Connection
-When you type https:// instead of http://, your connection is secured using HTTPS (HyperText Transfer Protocol Secure). HTTPS ensures that the communication between your browser and Google’s server is encrypted, preventing third parties from eavesdropping.
+A firewall is a network security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules. It typically establishes a barrier between a trusted network and an untrusted network, such as the Internet.
 
-Here’s how the SSL/TLS handshake works:
+The firewall maintains an access control list which dictates what packets will be looked at and what action should be applied, if any, with the default action set to silent discard. Three basic actions regarding the packet consist of a silent discard, discard with Internet Control Message Protocol or TCP reset response to the sender, and forward to the next hop. Packets may be filtered by source and destination IP addresses, protocol, source and destination ports.
+HTTPS/SSL
 
-Browser Request: Your browser sends a request to Google’s server asking for its SSL/TLS certificate.
-Google’s Response: The server sends its certificate, which contains the public key and information about the certificate's authority (e.g., issued by Let's Encrypt or another trusted Certificate Authority).
-Browser Verification: Your browser verifies the certificate to ensure it’s legitimate.
-Encryption: The browser and server then agree on an encryption method and create a secure session key, which encrypts the data between them.
-Why is HTTPS important? HTTPS protects sensitive information like passwords and personal data by encrypting it, making it unreadable to anyone who intercepts the data between you and the server.
+Hypertext Transfer Protocol Secure (HTTPS) is an extension of the Hypertext Transfer Protocol (HTTP). It is used for secure communication over a computer network, and is widely used on the Internet. In HTTPS, the communication protocol is encrypted using Secure Sockets Layer (SSL). The protocol is therefore also referred to as HTTP over SSL.
 
-5. Load Balancer – Distributing Traffic
-Google handles millions of requests per second, so the traffic must be efficiently distributed across many servers. This is where the load balancer comes in.
+Secure Sockets Layer (SSL), is a cryptographic protocol designed to provide communications security over a computer network. The protocol is widely used in applications such as email, instant messaging, and voice over IP, but its use in securing HTTPS remains the most publicly visible.
+LOAD - BALANCER
 
-A load balancer’s job is to:
+A load balancer is a device that acts as a reverse proxy and distributes network or application traffic across a number of servers. Load balancers are used to improve the overall performance of applications by reducing the burden on servers associated with managing and maintaining application and network sessions, as well as by performing application-specific tasks.
 
-Distribute Traffic: It routes incoming requests to a pool of web servers based on a load-balancing algorithm, like round robin (each server gets a turn), least connections (server with the fewest connections gets the next request), or geographic location.
-Failover: If one server fails, the load balancer automatically redirects traffic to other healthy servers.
-Why is a load balancer important? Load balancers improve the performance, scalability, and reliability of web applications by preventing any single server from being overwhelmed.
+Load balancing can optimize the response time and avoid unevenly overloading some compute nodes while other compute nodes are left idle. HaProxy is a type of load-balancer.
+WEB SERVER
 
-6. Web Server – Handling the Request
-Once the load balancer routes your request to a server, it’s handled by the web server. A web server like Nginx or Apache is responsible for:
+A web server is computer software and underlying hardware that accepts requests via HTTP (the network protocol created to distribute web content) or its secure variant HTTPS. A user agent, commonly a web browser initiates communication by making a request for a web page or other resource using HTTP, and the server responds with the content of that resource or an error message. A web server can also accept and store resources sent from the user agent if configured to do so.
 
-Serving Static Content: It delivers static files such as HTML, CSS, JavaScript, and images.
-Proxying Requests: If dynamic content is needed (e.g., search results), the web server forwards the request to the application server.
-Why is a web server important? The web server is optimized for speed and can handle thousands of requests simultaneously. It ensures that static files are quickly delivered to the user.
+The hardware used to run a web server can vary according to the volume of requests that it needs to handle. At the low end of the range are embedded systems, such as a router that runs a small web server as its configuration interface. A high-traffic Internet website might handle requests with hundreds of servers that run on racks of high-speed computers. Examples of Web servers are Nginx and Apache.
+APPLICATION SERVER
 
-7. Application Server – Processing Dynamic Content
-If the request requires dynamic data (e.g., personalized search results), it’s passed from the web server to the application server. The application server contains the application logic, which can be written in languages like Python, Java, or Node.js.
+An application server is a server that hosts applications. Application server frameworks are software frameworks for building application servers. An application server framework provides both facilities to create web applications and a server environment to run them.
 
-Here’s what happens:
+An application server framework contains a comprehensive service layer model. It includes a set of components accessible to the software developer through a standard API defined for the platform itself. For Web applications, these components usually run in the same environment as their web server(s), and their main job is to support the construction of dynamic pages. However, many application servers do more than generate web pages: they implement services such as clustering, fail-over, and load-balancing, so developers can focus on implementing the business logic.
+DATABASE
 
-Business Logic: The application server processes the request, runs the necessary business logic, and interacts with other services, like the database.
-Generate Response: It generates the dynamic content and sends it back to the web server, which then forwards it to the browser.
-Why is the application server important? The application server allows for dynamic content generation, enabling websites to be interactive and personalized for users.
+A database is an organized collection of data stored and accessed electronically. A database management system (DBMS) is the software that interacts with end users, applications, and the database itself to capture and analyze the data. The DBMS software additionally encompasses the core facilities provided to administer the database. The sum total of the database, the DBMS and the associated applications can be referred to as a database system. Often the term "database" is also used loosely to refer to any of the DBMS, the database system or an application associated with the database.
 
-8. Database – Accessing Data
-For many requests, the application server needs to retrieve or store data. This is where the database comes into play. Google uses a massive, highly optimized database to store its search index, user data, and other important information.
+Computer scientists may classify database management systems according to the database models that they support. First is the Relational databases became dominant in the 1980s. These model data as rows and columns in a series of tables, and the vast majority use SQL for writing and querying data. The other became popular In the 2000s - Non-relational databases, collectively referred to as NoSQL because they use different query languages.
 
-Here’s how the database interaction works:
+Now that we have briefly discussed these topics, we can talk about processes behind the url we type on out phones, tablets or pc.
 
-Querying: The application server sends a query to the database to fetch relevant data (e.g., search results for a given query).
-Response: The database processes the query and sends the data back to the application server.
-Types of Databases: Google might use different types of databases, such as SQL-based databases (e.g., MySQL, PostgreSQL) or NoSQL databases (e.g., Google’s Bigtable, MongoDB).
-Why is the database important? Databases are essential for storing and retrieving structured data efficiently. Without a database, web applications would be unable to provide personalized, real-time information.
+When you type https://www.google.com in you Web browser, this is referred to as a URL (Uniform Resource Locator) which can be divided into three parts with an optional fourth part.
 
-summery
-When you press Enter after typing https://www.google.com, a lot of work happens behind the scenes. The process involves DNS resolution, securing the connection with HTTPS, load balancing to distribute traffic, web and application servers to handle the request, and databases to provide the necessary data. Each step is crucial for delivering a fast, secure, and reliable web experience.
+Protocol: The application-level protocol used by the client server. In this case, https.
+Hostname: The DNS domain name which is linked to an IP address using an A name record. In this case www.google.com
+Port: The port number that the server is listening for incoming requests from the client. When a port is not specified as in the case above, port 8080 which is the TCP default port for HTTP will be used.
+The fourth optional part is the path-and-file-name. When this is not defined, the default html file for the server will be displayed.
 
-By understanding this process, you gain valuable insight into how the web works, which is essential for anyone in the field of software engineering, whether you're focused on front-end development, system administration, or backend infrastructure.
+Anytime you enter a URL in the address box of the browser, the browser will translate the URL into a request message according to the specified protocol and send the request message to the server.
+
+Using https://www.google.com, the browser will translate the URL into the following
+
+GET index.html HTTPS/1.1 (which is the default html file for the server)
+
+Host: www.google.com
+
+Accept: image/gif, image/jpeg, */*
+
+Accept-Language: en-us
+
+Accept-Encoding: gzip, deflate
+
+User-Agent: Mozilla/4.0 (compatibility will be displayed here)
+
+When the request gets to the load balancer, it will be passed through the firewall and when it meets the firewall requirements, it will then be passed onto the designated server by the load balancer.
+
+When the request message reaches the server, the server can take either one of the following actions:
+
+The server interprets the request received and maps the file into a file under the server’s document directory and returns the file requested to the client.
+The server interprets the request received and maps the request into a program kept in the server, executes the program and returns the output of the program to the client.
+The request cannot be satisfied, the server returns an error message.
+
+The browser receives the response message, interprets it and displays the contents of the message on the browser’s window according to the type of the response.
