@@ -1,0 +1,85 @@
+
+What Happens When You Type https://www.google.com and Press Enter?
+When you type https://www.google.com into your browser and hit Enter, a series of steps take place behind the scenes to fetch the requested webpage. This seemingly simple process involves multiple layers of the web stack, from resolving the domain name to rendering the final HTML in your browser. In this blog post, I’ll walk you through each step, focusing on key concepts like DNS, TCP/IP, firewalls, HTTPS, load balancers, web and application servers, and databases.
+1. DNS Request – Resolving the Domain Name
+The first step in loading a webpage is resolving the domain name (e.g., www.google.com) into an IP address. This is where the Domain Name System (DNS) comes into play. DNS functions like the internet’s phonebook, translating human-readable domain names into machine-readable IP addresses.
+
+Browser Cache: Your browser checks if it has recently accessed the domain and has the IP address cached.
+OS Cache: If not, the operating system checks its local DNS cache.
+Recursive DNS Query: If neither has the IP, the request goes to a recursive DNS resolver, typically provided by your Internet Service Provider (ISP). The resolver might already have the answer in its cache, but if not, it queries authoritative DNS servers.
+Authoritative DNS Server: Eventually, the request reaches Google’s DNS server, which provides the correct IP address (e.g., 142.250.190.142).
+Return to Browser: The IP address is returned to the browser, allowing it to proceed with the connection.
+Why is DNS important? Without DNS, we would have to remember IP addresses instead of domain names, which would make navigating the web cumbersome.
+
+
+2. TCP/IP – Establishing a Connection
+With the IP address in hand, your browser initiates a connection to Google’s server using the TCP/IP protocol.
+
+Here’s how it works:
+
+IP (Internet Protocol): The IP protocol ensures your data packets are sent to the correct address. Think of it as the addressing system that routes your request to Google's server.
+TCP (Transmission Control Protocol): TCP ensures that the connection is reliable. Before any data can be exchanged, a three-way handshake is performed:
+SYN: Your browser sends a "SYN" packet to Google’s server to initiate the connection.
+SYN-ACK: Google’s server responds with a "SYN-ACK" to acknowledge.
+ACK: Your browser replies with an "ACK," and the connection is established.
+Why is TCP/IP important? TCP/IP ensures data is reliably transmitted between your computer and the server. It guarantees that packets arrive in order, without errors or data loss
+
+3. Firewall – Controlling Network Access
+Before any data reaches Google’s server, it passes through firewalls on both ends. A firewall is a security device that monitors and controls incoming and outgoing network traffic based on predetermined rules.
+
+Here’s how firewalls function in this context:
+
+Your Firewall: Protects your system from malicious traffic by filtering inbound and outbound requests.
+Google’s Firewall: Similarly, Google’s firewall ensures that only legitimate traffic is allowed into their network, blocking potential threats.
+Why is a firewall important? Firewalls are critical for network security, as they help prevent unauthorized access and block malicious traffic from reaching servers.
+
+4. HTTPS/SSL – Securing the Connection
+When you type https:// instead of http://, your connection is secured using HTTPS (HyperText Transfer Protocol Secure). HTTPS ensures that the communication between your browser and Google’s server is encrypted, preventing third parties from eavesdropping.
+
+Here’s how the SSL/TLS handshake works:
+
+Browser Request: Your browser sends a request to Google’s server asking for its SSL/TLS certificate.
+Google’s Response: The server sends its certificate, which contains the public key and information about the certificate's authority (e.g., issued by Let's Encrypt or another trusted Certificate Authority).
+Browser Verification: Your browser verifies the certificate to ensure it’s legitimate.
+Encryption: The browser and server then agree on an encryption method and create a secure session key, which encrypts the data between them.
+Why is HTTPS important? HTTPS protects sensitive information like passwords and personal data by encrypting it, making it unreadable to anyone who intercepts the data between you and the server.
+
+5. Load Balancer – Distributing Traffic
+Google handles millions of requests per second, so the traffic must be efficiently distributed across many servers. This is where the load balancer comes in.
+
+A load balancer’s job is to:
+
+Distribute Traffic: It routes incoming requests to a pool of web servers based on a load-balancing algorithm, like round robin (each server gets a turn), least connections (server with the fewest connections gets the next request), or geographic location.
+Failover: If one server fails, the load balancer automatically redirects traffic to other healthy servers.
+Why is a load balancer important? Load balancers improve the performance, scalability, and reliability of web applications by preventing any single server from being overwhelmed.
+
+6. Web Server – Handling the Request
+Once the load balancer routes your request to a server, it’s handled by the web server. A web server like Nginx or Apache is responsible for:
+
+Serving Static Content: It delivers static files such as HTML, CSS, JavaScript, and images.
+Proxying Requests: If dynamic content is needed (e.g., search results), the web server forwards the request to the application server.
+Why is a web server important? The web server is optimized for speed and can handle thousands of requests simultaneously. It ensures that static files are quickly delivered to the user.
+
+7. Application Server – Processing Dynamic Content
+If the request requires dynamic data (e.g., personalized search results), it’s passed from the web server to the application server. The application server contains the application logic, which can be written in languages like Python, Java, or Node.js.
+
+Here’s what happens:
+
+Business Logic: The application server processes the request, runs the necessary business logic, and interacts with other services, like the database.
+Generate Response: It generates the dynamic content and sends it back to the web server, which then forwards it to the browser.
+Why is the application server important? The application server allows for dynamic content generation, enabling websites to be interactive and personalized for users.
+
+8. Database – Accessing Data
+For many requests, the application server needs to retrieve or store data. This is where the database comes into play. Google uses a massive, highly optimized database to store its search index, user data, and other important information.
+
+Here’s how the database interaction works:
+
+Querying: The application server sends a query to the database to fetch relevant data (e.g., search results for a given query).
+Response: The database processes the query and sends the data back to the application server.
+Types of Databases: Google might use different types of databases, such as SQL-based databases (e.g., MySQL, PostgreSQL) or NoSQL databases (e.g., Google’s Bigtable, MongoDB).
+Why is the database important? Databases are essential for storing and retrieving structured data efficiently. Without a database, web applications would be unable to provide personalized, real-time information.
+
+summery
+When you press Enter after typing https://www.google.com, a lot of work happens behind the scenes. The process involves DNS resolution, securing the connection with HTTPS, load balancing to distribute traffic, web and application servers to handle the request, and databases to provide the necessary data. Each step is crucial for delivering a fast, secure, and reliable web experience.
+
+By understanding this process, you gain valuable insight into how the web works, which is essential for anyone in the field of software engineering, whether you're focused on front-end development, system administration, or backend infrastructure.
